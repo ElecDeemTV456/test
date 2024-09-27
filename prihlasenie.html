@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platby DPFO na Slovensku</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0073e6;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        header button {
+            background-color: white;
+            color: #0073e6;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        header button:hover {
+            background-color: #005bb5;
+            color: white;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            background-color: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #0073e6;
+            color: white;
+        }
+        .calculate-btn {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .calculate-btn:hover {
+            background-color: #005bb5;
+        }
+        .modal {
+            display: none; /* Skryjeme modální okno při načtení */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            border-radius: 5px;
+        }
+        .login-input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .login-btn {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .login-btn:hover {
+            background-color: #005bb5;
+        }
+    </style>
+    <script>
+        const firmData = {
+            "FSSR": "hesloFSSR"
+        };
+
+        function showLoginForm() {
+            document.querySelector('.modal').style.display = 'block';
+        }
+
+        function closeLoginForm() {
+            document.querySelector('.modal').style.display = 'none';
+        }
+
+        function login() {
+            const firmName = document.getElementById('firmName').value;
+            const password = document.getElementById('password').value;
+
+            if (firmData[firmName] && firmData[firmName] === password) {
+                closeLoginForm();
+                alert('Prihlásenie úspešné! Môžete zpracovávať dáta firmy ' + firmName);
+                window.open('informace-firmy.html', '_blank'); // Otevře nové okno s informacemi o firmě
+            } else {
+                alert('Nesprávne meno firmy alebo heslo.');
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Platby DPFO na Slovensku</h1>
+        <button onclick="showLoginForm()">Přihlásit se</button>
+    </header>
+
+    <main>
+        <section>
+            <h2>Čo je daň z príjmu fyzických osôb (DPFO)?</h2>
+            <p>Daň z príjmu fyzických osôb je povinná platba, ktorú musia platiť jednotlivci z ich príjmu. Platí pre všetky fyzické osoby, ktoré majú príjem zo zamestnania, podnikania, prenájmu a iných zdrojov príjmu.</p>
+        </section>
+
+        <section id="vypocet-dpfo">
+            <h2>Výpočet DPFO</h2>
+            <p>DPFO sa vypočítava ako určitý percentuálny podiel z celkového zdaniteľného príjmu fyzickej osoby. Na Slovensku existujú dve sadzby dane:</p>
+            <ul>
+                <li>19 % pre príjmy do 37 981,94 € ročne</li>
+                <li>25 % pre príjmy nad túto hranicu</li>
+            </ul>
+            <button class="calculate-btn" onclick="window.location.href='vypocet-stranka.html'">Vypočítať dane</button>
+        </section>
+
+        <section>
+            <h2>Termíny a spôsob podania</h2>
+            <p>Daňové priznanie je potrebné podať najneskôr do 31. marca nasledujúceho roka za predchádzajúci kalendárny rok. Daň sa môže podať elektronicky alebo papierovo.</p>
+            <p>Platbu dane je možné uhradiť bankovým prevodom na účet finančného úradu alebo prostredníctvom pošty.</p>
+        </section>
+
+        <section>
+            <h2>Odpočítateľné položky</h2>
+            <p>Od základu dane si môžu fyzické osoby odpočítať rôzne položky, ako sú nezdaniteľná časť základu dane, príspevky na doplnkové dôchodkové sporenie a iné.</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 Platby DPFO na Slovensku</p>
+    </footer>
+
+    <!-- Modální okno pro přihlášení -->
+    <div class="modal">
+        <div class="modal-content">
+            <span onclick="closeLoginForm()" style="cursor:pointer; float:right;">&times;</span>
+            <h2>Prihlásenie do firmy</h2>
+            <input type="text" id="firmName" class="login-input" placeholder="Názov firmy" required>
+            <input type="password" id="password" class="login-input" placeholder="Heslo" required>
+            <button class="login-btn" onclick="login()">Prihlásiť sa</button>
+        </div>
+    </div>
+
+    <script>
+        // Zatvorení modálního okna, pokud kliknete mimo něj
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                closeLoginForm();
+            }
+        }
+    </script>
+</body>
+</html>

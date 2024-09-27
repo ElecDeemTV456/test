@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Výplatní páska</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #0073e6;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        main {
+            padding: 20px;
+        }
+        section {
+            background-color: white;
+            margin: 20px 0;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #0073e6;
+            color: white;
+        }
+        h2 {
+            margin-top: 0;
+        }
+        .summary {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+        .form-container input {
+            padding: 10px;
+            margin: 5px 0;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .form-container button {
+            background-color: #0073e6;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #005bb5;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Výplatní páska</h1>
+    </header>
+
+    <main>
+        <section>
+            <h2>Kdo: @Petr Gerkhane ║DominicekMeli</h2>
+            <p><strong>Co:</strong> ZZS Výplatní páska</p>
+            <p><strong>Základ:</strong> 30 142 €</p>
+            <p><strong>Daň:</strong> 5 727 €</p>
+        </section>
+
+        <section class="form-container">
+            <h2>Přidat vlastní výplatní pásku</h2>
+            <input type="text" id="name" placeholder="Jméno (např. @Petr Gerkhane)" required>
+            <input type="number" id="grossIncome" placeholder="Hrubý příjem (€)" required>
+            <input type="number" id="netIncome" placeholder="Čistý příjem (€)" required>
+            <input type="number" id="tax" placeholder="Daň (€)" required>
+            <button onclick="addPayroll()">Přidat výplatní pásku</button>
+        </section>
+
+        <div class="result" id="result"></div>
+
+        <div class="summary">
+            <p><strong>Celkem (pro všechny dohromady):</strong></p>
+            <p><strong>Celkový hrubý příjem:</strong> 30 142 €</p>
+            <p><strong>Celková daň:</strong> 5 726,98 €</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2024 Výplatní páska</p>
+    </footer>
+
+    <script>
+        function addPayroll() {
+            const name = document.getElementById('name').value;
+            const grossIncome = document.getElementById('grossIncome').value;
+            const netIncome = document.getElementById('netIncome').value;
+            const tax = document.getElementById('tax').value;
+
+            const resultDiv = document.getElementById('result');
+
+            // Přidání nového příspěvku
+            resultDiv.innerHTML += `
+                <section>
+                    <h2>${name}:</h2>
+                    <p><strong>Hrubý příjem:</strong> ${grossIncome} €</p>
+                    <p><strong>Čistý příjem:</strong> ${netIncome} €</p>
+                    <p><strong>Daň:</strong> ${tax} €</p>
+                </section>
+            `;
+
+            // Vymazání formuláře po přidání
+            document.getElementById('name').value = '';
+            document.getElementById('grossIncome').value = '';
+            document.getElementById('netIncome').value = '';
+            document.getElementById('tax').value = '';
+        }
+    </script>
+</body>
+</html>
