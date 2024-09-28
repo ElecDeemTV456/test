@@ -20,10 +20,10 @@
         h1 {
             color: #0073e6;
         }
-        .tax-info {
+        .exchange-info {
             margin-top: 20px;
         }
-        .tax-item {
+        .exchange-rate {
             margin: 5px 0;
             padding: 10px;
             background-color: #e7f3ff;
@@ -37,12 +37,36 @@
         <p>FSSR je zodpovedná za správu a výber daní na Slovensku. Poskytuje služby občanom, podnikateľom a organizáciám.</p>
         <p>Poslaním FSSR je zabezpečiť efektívne a spravodlivé zdaňovanie fyzických a právnických osôb v súlade so zákonmi Slovenskej republiky.</p>
 
-        <div class="tax-info">
-            <h2>Zoznam daní:</h2>
-            <div class="tax-item">Zatím mimo provoz</div>
-            <div class="tax-item">Zatím mimo provoz</div>
-            <!-- Přidejte další daně podle potřeby -->
+        <div class="exchange-info">
+            <h2>Aktuálne kurzy:</h2>
+            <div class="exchange-rate">Kurz EUR/CZK: <span id="eur-czk">Načítání...</span></div>
+            <div class="exchange-rate">Kurz EUR/USD: <span id="eur-usd">Načítání...</span></div>
         </div>
     </section>
+
+    <script>
+        // Funkce pro získání aktuálních kurzů z API
+        async function getExchangeRates() {
+            try {
+                const response = await fetch('https://api.exchangerate-api.com/v4/latest/EUR');
+                const data = await response.json();
+
+                // Získání kurzu EUR/CZK a EUR/USD
+                const eurToCzk = data.rates.CZK;
+                const eurToUsd = data.rates.USD;
+
+                // Aktualizace hodnot na stránce
+                document.getElementById('eur-czk').textContent = eurToCzk.toFixed(2) + ' CZK';
+                document.getElementById('eur-usd').textContent = eurToUsd.toFixed(2) + ' USD';
+            } catch (error) {
+                console.error('Chyba při získávání kurzů:', error);
+                document.getElementById('eur-czk').textContent = 'Nepodařilo se načíst';
+                document.getElementById('eur-usd').textContent = 'Nepodařilo se načíst';
+            }
+        }
+
+        // Automaticky aktualizovat kurzy při načtení stránky
+        window.onload = getExchangeRates;
+    </script>
 </body>
 </html>
